@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CineSync — Different people. Same taste.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ambient ambient-a"></div><div class="ambient ambient-b"></div><div class="grain"></div>
+
+<header class="topbar">
+  <button class="brand" onclick="show('home')" aria-label="CineSync home">
+    <img class="brand-logo" src="cinesync-logo.png" alt="CineSync">
+  </button>
+  <nav class="topnav">
+    <button onclick="show('home')">Home</button>
+    <button onclick="show('discover')">Discover</button>
+    <button onclick="show('matches')">Matches <span id="matchBadge" class="nav-badge">0</span></button>
+    <button onclick="show('chat')">Chats</button>
+  </nav>
+  <div class="theme-toggle" role="group" aria-label="Theme">
+    <button id="darkThemeBtn" class="theme-btn active" onclick="setTheme('dark')" title="Dark mode">☾</button>
+    <button id="lightThemeBtn" class="theme-btn" onclick="setTheme('light')" title="Light mode">☀</button>
+  </div>
+  <button class="avatar top-avatar" onclick="show('profile')">A</button>
+</header>
+
+<aside class="sidebar">
+  <div class="side-logo"><img src="cinesync-logo.png" alt="CineSync"></div>
+  <div class="side-links">
+    <button class="side-link active" onclick="show('home')"><span>⌂</span>Home</button>
+    <button class="side-link" onclick="show('discover')"><span>⌕</span>Discover</button>
+    <button class="side-link" onclick="show('matches')"><span>♡</span>Matches</button>
+    <button class="side-link" onclick="show('chat')"><span>▣</span>Chats</button>
+    <button class="side-link" onclick="show('profile')"><span>◉</span>Profile</button>
+  </div>
+  <div class="side-tip">
+    <div class="tip-dna">✦</div>
+    <b>Find your movie people.</b>
+    <span>Same taste, different people.</span>
+  </div>
+</aside>
+
+<main>
+<section id="home" class="screen active">
+  <div class="dashboard-head">
+    <div><p class="eyebrow">YOUR MOVIE UNIVERSE ✦</p><h1>Hey there, <span id="homeName">movie lover</span>.</h1><p class="sub">Ready to find your next favourite movie — or your next movie buddy?</p></div>
+    <button class="profile-pill" onclick="show('profile')"><span class="mini-avatar">A</span><span>My profile</span> ↗</button>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-main card-glow">
+      <div class="hero-copy">
+        <span class="pill pink">DIFFERENT PEOPLE. SAME TASTE.</span>
+        <h2>Movies are better<br><em>when the taste matches.</em></h2>
+        <p>Swipe through movies with your friend, or discover people online who just <i>get</i> your taste.</p>
+        <div class="hero-actions"><button class="primary" onclick="show('mode')">Start matching <span>→</span></button><button class="ghost-btn" onclick="show('discover')">Explore first</button></div>
+      </div>
+      <div class="hero-visual">
+        <div class="poster-stack">
+          <div class="stack-card stack-back">INCEPTION</div>
+          <div class="stack-card stack-mid">KNIVES<br>OUT</div>
+          <div class="stack-card stack-front"><span>SCI-FI • 8.7</span><strong>INTER<br>STELLAR</strong><small>★ 8.7 &nbsp; 2014</small></div>
+        </div>
+        <div class="floating-match"><span>💥</span><div><b>It's a match!</b><small>You both picked this.</small></div></div>
+        <div class="floating-dna">🧬</div>
+      </div>
+    </div>
+    <div class="dna-card panel-card">
+      <div class="card-title"><div><p class="eyebrow">YOUR DNA</p><h3>Movie taste snapshot</h3></div><span class="sparkle">✦</span></div>
+      <div class="dna-ring"><div><span>YOUR</span><b>DNA</b></div></div>
+      <div class="taste-bars"><div><span>Thriller</span><i style="--w:86%"></i></div><div><span>Sci-Fi</span><i style="--w:74%"></i></div><div><span>Drama</span><i style="--w:62%"></i></div></div>
+      <button class="outline wide" onclick="startOnline()">Build my DNA →</button>
+    </div>
+  </div>
+  <div class="quick-row">
+    <button class="quick-card" onclick="startOffline()"><span class="quick-icon purple">👥</span><div><b>Movie night</b><small>Watch with a friend</small></div><span>→</span></button>
+    <button class="quick-card" onclick="startOnline()"><span class="quick-icon blue">✦</span><div><b>Meet your people</b><small>Find your taste twins</small></div><span>→</span></button>
+    <button class="quick-card" onclick="show('matches')"><span class="quick-icon pink">♡</span><div><b>Your matches</b><small>Movies + people</small></div><span>→</span></button>
+  </div>
+  <div class="section-label"><span>HOW IT WORKS</span><i></i><small>Three steps. Zero awkward small talk.</small></div>
+  <div class="steps"><div><b>01</b><h3>Pick your space</h3><p>Campus or open community. You control who can discover you.</p></div><div><b>02</b><h3>Choose your vibe</h3><p>Pick genres, then swipe through a shared movie pool.</p></div><div><b>03</b><h3>Find the click</h3><p>Match on movies, chat about them, and plan the next watch.</p></div></div>
+</section>
+
+<section id="auth" class="screen narrow-screen">
+  <div class="auth-brand"><img src="cinesync-logo.png" alt="CineSync"></div>
+  <div class="panel auth-panel">
+    <p class="eyebrow">WELCOME TO YOUR MOVIE DNA</p><h2>How are you joining?</h2><p class="muted">Your choice controls who can discover you.</p>
+    <div class="choice-grid">
+      <button class="choice" onclick="selectAuth('campus')"><span class="choice-icon">🎓</span><b>Campus / College</b><small>Use your college email or student ID and choose how widely you want to be discovered.</small><span class="choice-arrow">→</span></button>
+      <button class="choice" onclick="selectAuth('open')"><span class="choice-icon">🌐</span><b>Open community</b><small>Join with a normal email and meet movie people from the wider community.</small><span class="choice-arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<section id="signup" class="screen narrow-screen">
+  <div class="panel form-panel">
+    <button class="back" onclick="show('auth')">← Back</button><p class="eyebrow" id="signupEyebrow">CAMPUS JOIN</p><h2 id="signupTitle">Create your profile</h2><p class="muted">A few details and you're in.</p>
+    <div class="form-grid"><label>Name<input id="name" placeholder="Your name"></label><label>Email<input id="email" placeholder="you@college.edu"></label><label id="collegeWrap">College / institute<input id="college" placeholder="Your college"></label><label>Username<input id="username" placeholder="@yourhandle"></label></div>
+    <div id="campusReach" class="reach"><p><b>Who should we recommend?</b></p><div class="seg reach-options"><button class="segbtn selected" data-reach="same" onclick="reach('same')">My college only</button><button class="segbtn" data-reach="all" onclick="reach('all')">All colleges</button><button class="segbtn" data-reach="open" onclick="reach('open')">Open community</button></div><small class="reach-note">Campus members can discover their college, other colleges, or open-community users. Open users cannot discover campus-only profiles.</small></div>
+    <button class="primary wide" onclick="finishSignup()">Continue →</button>
+  </div>
+</section>
+
+<section id="mode" class="screen narrow-screen">
+  <div class="panel mode-panel"><p class="eyebrow">ONE PROFILE • TWO WAYS TO CONNECT</p><h2>What are we doing tonight?</h2><p class="muted">Choose the experience that fits the moment.</p>
+    <div class="mode-grid"><button class="mode-card offline" onclick="startOffline()"><span class="mode-icon">👥</span><b>Offline Mode</b><small>You're with a friend. Send a request, choose genres together, then swipe the same movie pool.</small><i>Friend → swipe → BOOM</i><em>Perfect for movie night</em></button><button class="mode-card online" onclick="startOnline()"><span class="mode-icon">✦</span><b>Online Mode</b><small>Swipe through movies yourself. We'll surface people with overlapping movie taste.</small><i>Swipe → top 3 → chat</i><em>Find your taste twins</em></button></div>
+  </div>
+</section>
+
+<section id="offlineInvite" class="screen">
+  <div class="panel workspace"><div class="progress-steps"><span class="done">1</span><i></i><span>2</span><i></i><span>3</span><i></i><span>4</span></div>
+    <div class="section-head"><div><p class="eyebrow">OFFLINE MODE</p><h2>Find your movie buddy.</h2><p class="muted">Search their username and send the invite.</p></div><button class="outline" onclick="startOnline()">Switch to online ↗</button></div>
+    <div class="search hero-search"><span>⌕</span><input id="friendSearch" oninput="renderFriends()" placeholder="Search a username, e.g. @maya"></div><div id="friendResults" class="friend-list"></div>
+  </div>
+</section>
+
+<section id="request" class="screen narrow-screen"><div class="panel center request-panel"><div class="success-icon">✓</div><p class="eyebrow">MOVIE REQUEST SENT</p><h2 id="requestTitle">Waiting for your friend</h2><p class="muted">Once they accept, you'll choose genres together.</p><button class="primary" onclick="acceptRequest()">Accept request (demo) →</button><button class="text-btn" onclick="show('home')">Back to home</button></div></section>
+
+<section id="genres" class="screen"><div class="panel workspace"><div class="section-head"><div><p class="eyebrow" id="genreEyebrow">SET THE VIBE</p><h2>What's your movie DNA tonight?</h2><p class="muted">Choose at least two genres. You can always switch modes later.</p></div><span class="step-pill">STEP 1 / 2</span></div><div id="genreGrid" class="genre-grid"></div><div class="genre-footer"><span><b id="genreCount">0</b> selected</span><button class="primary" onclick="finishGenres()">Start swiping →</button></div></div></section>
+
+<section id="swipe" class="screen"><div class="workspace swipe-workspace"><div class="swipe-head"><div><p class="eyebrow" id="swipeMode">OFFLINE ROOM</p><h2>Would you watch this?</h2><p class="muted">Trust the vibe. Your first instinct is usually right.</p></div><div class="swipe-nav"><button class="mode-switch" onclick="switchSwipeMode()">Switch to <span id="switchModeLabel">online</span> ↗</button><span id="progress">1 / 8</span></div></div>
+  <div class="swipe-layout"><div class="movie-card" id="movieCard"><div id="moviePoster" class="movie-poster"><span id="movieGenre"></span><div class="poster-shine"></div></div><div class="movie-info"><div><h2 id="movieTitle">Interstellar</h2><p id="movieMeta">2014 • 2h 49m • Sci-Fi</p></div><span class="rating">★ <b id="movieRating">8.7</b></span></div><p id="movieDesc" class="desc"></p></div><div class="swipe-side"><div class="swipe-controls"><button class="swipe-no" onclick="swipe(false)">×</button><button class="swipe-yes" onclick="swipe(true)">♥</button></div><small>← not tonight &nbsp;&nbsp;&nbsp; absolutely →</small><div class="swipe-note"><span>🧬</span><div><b>Building your DNA</b><small>Every like teaches the algorithm your taste.</small></div></div></div></div>
+</div></section>
+
+<section id="boom" class="screen"><div class="boom-card"><div class="boom-dna">✦</div><div class="confetti">✦ &nbsp;✦ &nbsp;✦</div><div class="boom">BOOM!</div><p class="eyebrow">IT'S A MATCH</p><h1 id="boomTitle">Interstellar</h1><p id="boomSub">You and your friend both want to watch this.</p><div class="matched-avatars"><span>A</span><b>♥</b><span id="friendAvatar">M</span></div><div class="boom-actions"><button class="primary" onclick="show('matches')">See matches</button><button class="secondary" onclick="show('swipe')">Keep swiping</button></div></div></section>
+
+<section id="discover" class="screen"><div class="workspace"><div class="section-head"><div><p class="eyebrow">DISCOVER</p><h2>Build your movie DNA.</h2><p class="muted">Swipe right on movies or series you've watched — or secretly want to watch.</p></div><button class="primary" onclick="startOnline()">Start swiping →</button></div><div class="discover-grid"><div class="mini-stat big"><span>✦</span><b id="likedCount">0</b><small>titles liked</small></div><div class="mini-stat"><b>24</b><small>titles in demo</small></div><div class="mini-stat"><b>∞</b><small>people to meet</small></div><div class="taste-preview"><p class="eyebrow">WHAT YOU'RE BUILDING</p><div class="preview-chips"><span>Sci-Fi</span><span>Thriller</span><span>Drama</span><span>+ more</span></div><h3>Your taste becomes your introduction.</h3><p>Instead of a profile full of prompts, CineSync starts with the things you actually watch.</p></div></div></div></section>
+
+<section id="onlineResults" class="screen"><div class="workspace"><div class="section-head"><div><p class="eyebrow">YOUR TASTE HAS SPOKEN ✦</p><h2>People you might click with.</h2><p class="muted">Based on overlapping movie likes from this demo.</p></div><button class="outline" onclick="startOnline()">Do another round</button></div><div id="people" class="people-grid"></div></div></section>
+
+<section id="matches" class="screen"><div class="workspace"><div class="section-head"><div><p class="eyebrow">YOUR MATCHES</p><h2>The good stuff.</h2><p class="muted">Movies you clicked on. People you clicked with.</p></div><button class="primary" onclick="show('mode')">Find another →</button></div><div id="matchList" class="match-list"></div></div></section>
+
+<section id="chat" class="screen"><div class="workspace chat-shell"><div class="chat-top"><button class="back" onclick="show('matches')">←</button><div class="person-avatar">M</div><div><b id="chatName">Maya</b><small>Matched on Interstellar • online now</small></div><div class="chat-actions"><button>⌕</button><button>⋮</button></div></div><div class="chat-topic"><span>✦</span> You matched on <b>Interstellar</b><button onclick="show('matches')">View match</button></div><div id="messages" class="messages"></div><div class="chat-suggestions"><button onclick="document.getElementById('msg').value='Which scene was your favourite?'">Favourite scene?</button><button onclick="document.getElementById('msg').value='Have you seen Inception?'">Seen Inception?</button><button onclick="document.getElementById('msg').value='Movie night soon? 👀'">Movie night?</button></div><div class="chat-input"><input id="msg" placeholder="Talk movies, not small talk…" onkeydown="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">↑</button></div></div></section>
+
+<section id="profile" class="screen"><div class="workspace profile-workspace"><div class="profile-cover"><div class="profile-head"><div class="big-avatar">A</div><div><p class="eyebrow">YOUR MOVIE DNA</p><h2 id="profileName">Anshika</h2><p class="muted" id="profileLine">Movie person • Campus</p></div><div class="profile-actions"><button class="outline" onclick="toast('Profile editor coming next ✦')">Edit profile</button><button class="outline theme-inline" onclick="toggleTheme()">☼ <span>Theme</span></button></div></div></div><div class="profile-stats"><div><b>0</b><span>matches</span></div><div><b>0</b><span>titles liked</span></div><div><b>4.8</b><span>taste score</span></div><div><b>∞</b><span>next watch</span></div></div><div class="profile-columns"><div class="panel-card inner-card"><p class="eyebrow">YOUR VIBE</p><h3>The things you gravitate toward.</h3><div class="chips"><span>Movie nights</span><span>Thrillers</span><span>Good endings</span><span>Late-night cinema</span></div></div><div class="panel-card inner-card dna-profile"><p class="eyebrow">DNA PREVIEW</p><div class="dna-profile-row"><span>✦</span><div><b>Your DNA is still loading.</b><small>Swipe a few titles to make it yours.</small></div></div><button class="primary wide" onclick="startOnline()">Build my DNA</button></div></div></div></section>
+</main>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

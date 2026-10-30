@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reelmate — Match on what you watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-orb orb-a"></div><div class="bg-orb orb-b"></div>
+<header class="nav">
+  <div class="brand"><span class="brand-mark">R</span><span>reelmate</span></div>
+  <div class="nav-actions">
+    <button class="ghost" onclick="show('discover')">Discover</button>
+    <button class="ghost" onclick="show('matches')">Matches <span id="matchBadge" class="badge">0</span></button>
+    <button class="ghost" onclick="show('chat')">Chats</button>
+    <button class="avatar" onclick="show('profile')">A</button>
+  </div>
+</header>
+
+<main>
+<section id="home" class="screen active">
+  <div class="hero">
+    <div>
+      <p class="eyebrow">MOVIES • PEOPLE • GOOD NIGHTS</p>
+      <h1>Find something<br><em>worth watching.</em></h1>
+      <p class="sub">Swipe with a friend in the same room, or discover people online who obsess over the same movies and series you do.</p>
+      <div class="hero-actions">
+        <button class="primary" onclick="show('auth')">Get started <span>→</span></button>
+        <button class="secondary" onclick="show('discover')">See how it works</button>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="poster poster1"><span>INTERSTELLAR</span></div>
+      <div class="float-card"><b>💥 It's a match!</b><small>You both picked this one.</small></div>
+    </div>
+  </div>
+  <div class="feature-row">
+    <div><b>01</b><span>Choose your space</span><small>Campus or open community.</small></div>
+    <div><b>02</b><span>Pick a mode</span><small>Offline with friends or online discovery.</small></div>
+    <div><b>03</b><span>Swipe & connect</span><small>Match on movies, then talk about them.</small></div>
+  </div>
+</section>
+
+<section id="auth" class="screen">
+  <div class="panel auth-panel">
+    <p class="eyebrow">WELCOME TO REELMATE</p>
+    <h2>How are you joining?</h2>
+    <p class="muted">Your choice controls who can discover you.</p>
+    <div class="choice-grid">
+      <button class="choice" onclick="selectAuth('campus')"><span class="choice-icon">🎓</span><b>Campus</b><small>Use your college email / student ID. Choose whether you want to meet only your college or students across colleges.</small></button>
+      <button class="choice" onclick="selectAuth('open')"><span class="choice-icon">🌐</span><b>Open community</b><small>Join with a normal email and discover movie people from anywhere.</small></button>
+    </div>
+  </div>
+</section>
+
+<section id="signup" class="screen">
+  <div class="panel form-panel">
+    <button class="back" onclick="show('auth')">← Back</button>
+    <p class="eyebrow" id="signupEyebrow">CAMPUS JOIN</p>
+    <h2 id="signupTitle">Create your profile</h2>
+    <div class="form-grid">
+      <label>Name<input id="name" placeholder="Your name"></label>
+      <label>Email<input id="email" placeholder="you@college.edu"></label>
+      <label id="collegeWrap">College / institute<input id="college" placeholder="Your college"></label>
+      <label>Username<input id="username" placeholder="@yourhandle"></label>
+    </div>
+    <div id="campusReach" class="reach">
+      <p><b>Who should we recommend?</b></p>
+      <div class="seg reach-options">
+<button class="segbtn selected" data-reach="same" onclick="reach('same')">My college only</button>
+<button class="segbtn" data-reach="all" onclick="reach('all')">All colleges</button>
+<button class="segbtn" data-reach="open" onclick="reach('open')">Open community</button>
+</div>
+<small class="reach-note">Campus members can discover people from their college, other colleges, or the open community. Open-community members cannot discover campus-only profiles.</small>
+    </div>
+    <button class="primary wide" onclick="finishSignup()">Continue →</button>
+  </div>
+</section>
+
+<section id="mode" class="screen">
+  <div class="panel">
+    <p class="eyebrow">ONE PROFILE • TWO WAYS TO USE IT</p>
+    <h2>What are we doing tonight?</h2>
+    <div class="mode-grid">
+      <button class="mode-card" onclick="startOffline()"><span>👥</span><b>Offline</b><small>You're sitting with a friend. Send them a movie request, let them accept, choose genres together, then swipe the same movie pool.</small><i>Friend → swipe → match</i></button>
+      <button class="mode-card" onclick="startOnline()"><span>✦</span><b>Online</b><small>Swipe through movies and series yourself. We'll surface people whose taste overlaps with yours.</small><i>Swipe → top 3 people → chat</i></button>
+    </div>
+  </div>
+</section>
+
+<section id="offlineInvite" class="screen">
+  <div class="panel form-panel">
+    <button class="back" onclick="show('mode')">← Back</button>
+    <div class="section-head"><div><p class="eyebrow">OFFLINE MODE</p><h2>Invite your movie buddy</h2></div><button class="secondary" onclick="startOnline()">Switch to online</button></div>
+    <p class="muted">For this prototype, search the demo friend list by username.</p>
+    <div class="search"><span>⌕</span><input id="friendSearch" oninput="renderFriends()" placeholder="Search @username"></div>
+    <div id="friendResults" class="friend-list"></div>
+  </div>
+</section>
+
+<section id="request" class="screen">
+  <div class="panel center">
+    <div class="success-icon">✓</div><p class="eyebrow">MOVIE REQUEST SENT</p><h2 id="requestTitle">Waiting for your friend</h2>
+    <p class="muted">Once they accept, you'll choose genres together.</p>
+    <button class="primary" onclick="acceptRequest()">Accept request (demo) →</button>
+  </div>
+</section>
+
+<section id="genres" class="screen">
+  <div class="panel">
+    <p class="eyebrow" id="genreEyebrow">SET THE VIBE</p><h2>What are you in the mood for?</h2><p class="muted">Choose at least two genres.</p>
+    <div id="genreGrid" class="genre-grid"></div>
+    <button class="primary wide" onclick="finishGenres()">Start swiping →</button>
+  </div>
+</section>
+
+<section id="swipe" class="screen">
+  <div class="swipe-head">
+<div><p class="eyebrow" id="swipeMode">OFFLINE ROOM</p><h2>Would you watch this?</h2></div>
+<div class="swipe-nav"><button class="mode-switch" onclick="switchSwipeMode()">Switch to <span id="switchModeLabel">online</span> ↗</button><span id="progress">1 / 8</span></div>
+</div>
+  <div class="swipe-layout">
+    <div class="movie-card" id="movieCard">
+      <div id="moviePoster" class="movie-poster"><span id="movieGenre"></span></div>
+      <div class="movie-info"><div><h2 id="movieTitle">Interstellar</h2><p id="movieMeta">2014 • 2h 49m • Sci-Fi</p></div><span class="rating">★ <b id="movieRating">8.7</b></span></div>
+      <p id="movieDesc" class="desc"></p>
+    </div>
+    <div class="swipe-controls">
+      <button class="swipe-no" onclick="swipe(false)">×</button><button class="swipe-yes" onclick="swipe(true)">♥</button>
+      <small>← not tonight &nbsp;&nbsp;&nbsp; absolutely →</small>
+    </div>
+  </div>
+</section>
+
+<section id="boom" class="screen">
+  <div class="boom-card">
+    <div class="confetti">✦ ✦ ✦</div><div class="boom">BOOM!</div><p class="eyebrow">IT'S A MATCH</p>
+    <h1 id="boomTitle">Interstellar</h1><p id="boomSub">You and your friend both want to watch this.</p>
+    <div class="boom-actions"><button class="primary" onclick="show('matches')">See matches</button><button class="secondary" onclick="show('swipe')">Keep swiping</button></div>
+  </div>
+</section>
+
+<section id="discover" class="screen">
+  <div class="panel">
+    <div class="section-head"><div><p class="eyebrow">ONLINE DISCOVERY</p><h2>Build your taste</h2><p class="muted">Swipe right on movies or series you've watched or want to watch.</p></div><button class="secondary" onclick="startOnline()">Start swiping</button></div>
+    <div class="mini-stats"><div><b id="likedCount">0</b><span>liked</span></div><div><b>24</b><span>titles in this demo</span></div><div><b>∞</b><span>people to meet</span></div></div>
+  </div>
+</section>
+
+<section id="onlineResults" class="screen">
+  <div class="panel">
+    <p class="eyebrow">YOUR TASTE HAS SPOKEN</p><h2>People you might click with.</h2><p class="muted">These are demo matches based on overlapping movie likes.</p>
+    <div id="people" class="people-grid"></div>
+  </div>
+</section>
+
+<section id="matches" class="screen">
+  <div class="panel">
+    <div class="section-head"><div><p class="eyebrow">YOUR MATCHES</p><h2>People & movies you clicked with.</h2></div></div>
+    <div id="matchList" class="match-list"></div>
+  </div>
+</section>
+
+<section id="chat" class="screen">
+  <div class="panel chat-panel">
+    <div class="chat-top"><div class="person-avatar">M</div><div><b id="chatName">Maya</b><small>Matched on Interstellar • online</small></div></div>
+    <div id="messages" class="messages"></div>
+    <div class="chat-input"><input id="msg" placeholder="Rant about the movie…" onkeydown="if(event.key==='Enter')sendMsg()"><button onclick="sendMsg()">Send</button></div>
+  </div>
+</section>
+
+<section id="profile" class="screen">
+  <div class="panel profile-panel">
+    <div class="profile-head"><div class="big-avatar">A</div><div><p class="eyebrow">YOUR PROFILE</p><h2 id="profileName">Anshika</h2><p class="muted" id="profileLine">Movie person • Campus</p></div></div>
+    <div class="profile-stats"><div><b>0</b><span>matches</span></div><div><b>0</b><span>titles liked</span></div><div><b>3</b><span>taste overlap</span></div></div>
+    <h3>Your vibe</h3><div class="chips"><span>Movie nights</span><span>Thrillers</span><span>Good endings</span></div>
+  </div>
+</section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
